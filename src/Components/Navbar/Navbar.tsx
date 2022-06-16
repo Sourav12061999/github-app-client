@@ -16,6 +16,7 @@ import {
   CloseIcon,
 } from "@chakra-ui/icons";
 import { NAV_ITEMS, NavItem } from "./NavItems";
+import {Link as RouterLink} from "react-router-dom";
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
   return (
@@ -102,6 +103,7 @@ const DesktopNav = () => {
     <Stack direction={"row"} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
+          <RouterLink to={navItem.href}>
           <Link
             p={2}
             href={navItem.href ?? "#"}
@@ -115,6 +117,7 @@ const DesktopNav = () => {
           >
             {navItem.label}
           </Link>
+          </RouterLink>
         </Box>
       ))}
     </Stack>

@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Form from '../../Components/Form/Form'
 function Home() {
   return (
-    <div>Home Page</div>
+    <div>
+      <Form/>
+    </div>
   )
 }
 

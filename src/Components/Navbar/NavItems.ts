@@ -1,23 +1,23 @@
 export type NavItem = {
     label: string;
-    href?: string;
+    href: string;
   }
   
   export const NAV_ITEMS: Array<NavItem> = [
     {
       label: "Home",
-      href:"#"
+      href:"/"
     },
     {
       label: "Students",
-      href:"#"
+      href:"/Students"
     },
     {
       label: "Active",
-      href: "#",
+      href: "/Active",
     },
     {
       label: "Done",
-      href: "#",
+      href: "/Done",
     },
   ];
