@@ -5,13 +5,14 @@ import url from "../../backend.url";
 function Students() {
   const [cohortList, setCohortList] = useState([]);
   const [currentCohort, setCurrentCohort] = useState<number | null>(null);
+  const [tableData, setTableData] = useState([]);
   useEffect(() => {
     fetch(`${url}/api/Cohorts`)
     .then((res) => res.json())
     .then((res) =>{
       setCohortList(res);
       if(res.length>0){
-        setCurrentCohort(res[0]);
+        setCurrentCohort(res[0].cohort);
       }
     })
     .catch((error) =>{
@@ -22,10 +23,10 @@ function Students() {
     if(currentCohort === null){
       return ;
     }
-    fetch(`${url}/students/${currentCohort}`)
+    fetch(`${url}/api/students/${currentCohort}`)
     .then((res) => res.json())
     .then((res) =>{
-     console.log(res);
+      setTableData(res);
     })
     .catch((error) =>{
       console.log(error);
@@ -35,8 +36,8 @@ function Students() {
   
   return (
     <div style={{width:"80%", marginInline:"auto",marginTop:"30px"}}>
-      <CohortSelect cohorts={cohortList}/>
-      <TableComponent tableRows={[]}/>
+      <CohortSelect setCohort={setCurrentCohort} cohorts={cohortList}/>
+      <TableComponent tableRows={tableData}/>
     </div>
   )
 }

@@ -2,14 +2,17 @@ import React from 'react'
 import { Select } from '@chakra-ui/react';
 import {Cohort} from "./cohort.types";
 interface Props{
-  cohorts:Array<Cohort>
+  cohorts:Array<Cohort>,
+  setCohort:(cohort:number) => void,
 }
-function CohortSelect({cohorts}:Props) {
+function CohortSelect({cohorts,setCohort}:Props) {
   return (
-    <Select>
+    <Select onChange={(e) =>{
+      setCohort(+e.target.value);
+    }}>
       {
         cohorts.map((el) =>(
-          <option value={el.cohort}>{el.cohort}</option>
+          <option key={el._id} value={el.cohort}>{el.cohort}</option>
         ))
       }
     </Select>
