@@ -10,6 +10,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { FormType } from "./Form.types";
+import url from "../../backend.url";
 function Form() {
     const [formData, setFormData] = useState<FormType>({
         cohort:0,
@@ -34,6 +35,21 @@ function Form() {
 
     const Submit = () =>{
         console.log(formData);
+        fetch(`${url}/api/submit`,{
+          method:"POST",
+          body:JSON.stringify({
+            cohort:formData.cohort,
+            CSVFile:formData.CSV
+          })
+        })
+        .then((res) => res.json())
+        .then((res) =>{
+          console.log(res);
+        })
+        .catch((error) =>{
+          console.log(error);
+          
+        })
     }
   return (
     <Container
