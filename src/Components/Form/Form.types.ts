@@ -1,4 +1,4 @@
-export type FormType = {
-  cohort:number,
-  CSV?:File,
+export type FormDataType={
+  cohort:Number,
+  file:File | null,
 }
