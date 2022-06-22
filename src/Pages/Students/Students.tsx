@@ -37,7 +37,7 @@ function Students() {
   return (
     <div style={{width:"80%", marginInline:"auto",marginTop:"30px"}}>
       <CohortSelect setCohort={setCurrentCohort} cohorts={cohortList}/>
-      <TableComponent tableRows={tableData}/>
+      <TableComponent cohort={currentCohort|| 0} tableRows={tableData}/>
     </div>
   )
 }

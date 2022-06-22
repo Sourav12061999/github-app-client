@@ -11,8 +11,9 @@ import {TableRow} from "./table.types";
 import Tablerow from "../Table Row/TableRow";
 interface Props{
     tableRows:Array<TableRow>,
+    cohort:number,
 }
-function TableComponent({tableRows}:Props) {
+function TableComponent({tableRows,cohort}:Props) {
   return (
     <TableContainer style={{marginTop:"30px"}}>
       <Table size="sm">
@@ -30,7 +31,7 @@ function TableComponent({tableRows}:Props) {
          {
             tableRows.map((el) =>(
                 <React.Fragment key={el._id}>
-                    <Tablerow tableRow={el}/>
+                    <Tablerow cohort={cohort} tableRow={el}/>
                 </React.Fragment>
             ))
          }

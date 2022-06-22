@@ -3,5 +3,5 @@ export type TableRow ={
  student_code:string,
  _id:string,
  github_username:string,
- status:"Pending" | "Active" | "Done" | "Wrong Username",
+ status:"Pending" | "Active" | "Done" | "Wrong Username" | "Correct Username",
 }
