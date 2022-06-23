@@ -1,44 +1,66 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import { Tr, Td, Button } from "@chakra-ui/react";
 import { TableRow } from "../Table/table.types";
 import { LinkIcon } from "@chakra-ui/icons";
 import useAddTeam from "../../Hooks/useAddTeam";
 import { Spinner } from "@chakra-ui/react";
+import UpdateModal from "../Update Modal/UpdateModal";
 interface Props {
   tableRow: TableRow;
   cohort: number;
 }
 function Tablerow({ tableRow, cohort }: Props) {
-  const { status, setStatus, addToTeam, isLoading } = useAddTeam(
+  const { status, isLoading } = useAddTeam(
     tableRow.status,
     tableRow.github_username,
-    cohort
+    cohort,
+    tableRow
   );
+  const [tableRowState, setTableRowState] = useState(tableRow);
+  useEffect(() => {
+    if(tableRowState.status==="WRONG USERNAME"){
+      fetch(`https://api.github.com/users/${tableRowState.github_username}`)
+      .then((res) => res.json())
+      .then((res) =>{
+        setTableRowState({...tableRowState,status:"CORRECT USERNAME"})
+    })
+    }
+  }, [tableRowState])
+  
   return (
-    <Tr>
-      <Td>{tableRow.name}</Td>
-      <Td>{tableRow.student_code}</Td>
-      <Td>{tableRow.github_username}</Td>
-      <Td>
-        <a
-          target={"_blank"}
-          href={`https://github.com/${tableRow.github_username}`}
-        >
-          <Button rightIcon={<LinkIcon />} colorScheme="blue" variant="outline">
-            Profile
-          </Button>
-        </a>
-      </Td>
-      <Td>
-        {!isLoading ? (
-          status
-        ) : (
-          <>
-            <Spinner size="md" />
-          </>
-        )}
-      </Td>
-    </Tr>
+    <>
+      <Tr>
+        <Td>{tableRowState.name}</Td>
+        <Td>{tableRowState.student_code}</Td>
+        <Td>{tableRowState.github_username}</Td>
+        <Td>
+          <a
+            target={"_blank"}
+            href={`https://github.com/${tableRowState.github_username}`}
+          >
+            <Button
+              rightIcon={<LinkIcon />}
+              colorScheme="blue"
+              variant="outline"
+            >
+              Profile
+            </Button>
+          </a>
+        </Td>
+        <Td>
+          {!isLoading ? (
+            status
+          ) : (
+            <>
+              <Spinner size="md" />
+            </>
+          )}
+        </Td>
+        <Td>
+          <UpdateModal setState={setTableRowState} data={tableRowState} />
+        </Td>
+      </Tr>
+    </>
   );
 }
 
