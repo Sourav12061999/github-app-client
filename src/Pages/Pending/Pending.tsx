@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import TableComponent from "../../Components/Table/Table";
 import CohortSelect from "../../Components/Cohort Select/CohortSelect";
 import url from "../../backend.url";
-import StatusSelect from "../../Components/Status Select/StatusSelect";
 import { TableRow } from "../../Components/Table/table.types";
-function Students() {
+function Pending() {
   const [cohortList, setCohortList] = useState([]);
   const [currentCohort, setCurrentCohort] = useState<number | null>(null);
   const [tableData, setTableData] = useState([]);
-  const [status, setStatus] = useState("all");
   useEffect(() => {
     fetch(`${url}/api/Cohorts`)
       .then((res) => res.json())
@@ -23,7 +21,7 @@ function Students() {
       });
   }, []);
   const fetchStudentsData=() =>{
-    fetch(`${url}/api/students/${currentCohort}/${status}`)
+    fetch(`${url}/api/students/${currentCohort}/PENDING`)
     .then((res) => res.json())
     .then((res) => {
       res=res.map((el:TableRow) =>({
@@ -42,16 +40,14 @@ function Students() {
     }
     fetchStudentsData()
     
-  }, [currentCohort,status]);
-  
+  }, [currentCohort]);
 
   return (
     <div style={{ width: "80%", marginInline: "auto", marginTop: "30px" }}>
       <CohortSelect setCohort={setCurrentCohort} cohorts={cohortList} />
-      <StatusSelect setStatus={setStatus}/>
       <TableComponent cohort={currentCohort || 0} tableRows={tableData} setTableData={setTableData} />
     </div>
   );
 }
 
-export default Students;
+export default Pending;

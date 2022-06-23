@@ -8,9 +8,10 @@ import UpdateModal from "../Update Modal/UpdateModal";
 interface Props {
   tableRow: TableRow;
   cohort: number;
-  allChecked:boolean
+  allChecked:boolean,
+  setTableData:Function
 }
-function Tablerow({ tableRow, cohort,allChecked }: Props) {
+function Tablerow({ tableRow, cohort,allChecked,setTableData }: Props) {
   const { status, isLoading, addToTeam } = useAddTeam(
     tableRow.status,
     tableRow.github_username,
@@ -29,9 +30,46 @@ function Tablerow({ tableRow, cohort,allChecked }: Props) {
     }
   }, [tableRowState]);
   useEffect(() => {
-    console.log(allChecked);
     setChecked(allChecked)
   }, [allChecked])
+  useEffect(() => {
+    setTableData((prev:Array<TableRow>) =>{
+      const newState=prev.map((element) =>{
+        if(element._id === tableRow._id){
+          return {...tableRow,isSelected:checked}
+        }else{
+          return element;
+        }
+      })
+      return newState;
+    })
+  }, [checked])
+  useEffect(() => {
+    setTableData((prev:Array<TableRow>) =>{
+     const newState=prev.map((el) =>{
+      if(el._id===tableRowState._id){
+        return tableRowState
+      }else{
+        return el;
+      }
+     })
+     return newState;
+    })
+  }, [tableRowState])
+  
+  useEffect(() => {
+    setTableData((prev:Array<TableRow>) =>{
+      const newState=prev.map((el) =>{
+       if(el.status===status){
+         return {...el,status}
+       }else{
+         return el;
+       }
+      })
+      return newState;
+     })
+  }, [status])
+  
   return (
     <>
       <Tr>

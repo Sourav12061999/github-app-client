@@ -16,7 +16,7 @@ import useUpdateData from "../../Hooks/useUpdateData";
 interface Props {
   data: TableRow;
   setState:(data:TableRow) => void,
-  addToTeam:Function
+  addToTeam:Function,
 }
 function UpdateModal({ data,setState,addToTeam}: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();

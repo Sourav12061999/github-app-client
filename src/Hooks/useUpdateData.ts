@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { TableRow } from "../Components/Table/table.types";
 import url from "../backend.url";
-import useAddTeam from "./useAddTeam";
 function useUpdateData() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);

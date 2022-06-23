@@ -13,11 +13,19 @@ export type NavItem = {
       href:"/Students"
     },
     {
+      label: "Pending",
+      href: "/Pending",
+    },
+    {
       label: "Active",
       href: "/Active",
     },
     {
       label: "Done",
       href: "/Done",
+    },
+    {
+      label: "Wrong Username",
+      href: "/Wrong_Username",
     },
   ];

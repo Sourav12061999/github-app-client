@@ -10,15 +10,18 @@ import {
 } from "@chakra-ui/react";
 import { TableRow } from "./table.types";
 import Tablerow from "../Table Row/TableRow";
+import MenuComp from "../Menu Component/MenuComp";
 interface Props {
-  tableRows: Array<TableRow>;
+  tableRows: Array<TableRow>,
   cohort: number;
+  setTableData:Function
 }
-function TableComponent({ tableRows, cohort }: Props) {
+function TableComponent({ tableRows, cohort,setTableData }: Props) {
   const [allChecked, setAllChecked] = useState(false);
-  
+
   return (
     <TableContainer style={{ marginTop: "20px" }}>
+      <MenuComp tableRows={tableRows}/>
       <Table size="sm">
         <Thead>
           <Tr>
@@ -38,13 +41,15 @@ function TableComponent({ tableRows, cohort }: Props) {
             <Th style={{ fontSize: "20px" }}>Repo Name</Th>
             <Th style={{ fontSize: "20px" }}>Profile</Th>
             <Th style={{ fontSize: "20px" }}>Status</Th>
-            <Th style={{ fontSize: "20px" }}>Update</Th>
+            <Th style={{ fontSize: "20px" }}>
+              Update
+            </Th>
           </Tr>
         </Thead>
         <Tbody>
           {tableRows.map((el) => (
             <React.Fragment key={el._id}>
-              <Tablerow allChecked={allChecked} cohort={cohort} tableRow={el} />
+              <Tablerow setTableData={setTableData} allChecked={allChecked} cohort={cohort} tableRow={el} />
             </React.Fragment>
           ))}
         </Tbody>
