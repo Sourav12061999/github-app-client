@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   TableContainer,
   Table,
@@ -6,35 +6,47 @@ import {
   Tr,
   Th,
   Tbody,
+  Checkbox,
 } from "@chakra-ui/react";
-import {TableRow} from "./table.types";
+import { TableRow } from "./table.types";
 import Tablerow from "../Table Row/TableRow";
-interface Props{
-    tableRows:Array<TableRow>,
-    cohort:number,
+interface Props {
+  tableRows: Array<TableRow>;
+  cohort: number;
 }
-function TableComponent({tableRows,cohort}:Props) {
+function TableComponent({ tableRows, cohort }: Props) {
+  const [allChecked, setAllChecked] = useState(false);
+  
   return (
-    <TableContainer style={{marginTop:"30px"}}>
+    <TableContainer style={{ marginTop: "20px" }}>
       <Table size="sm">
         <Thead>
-          <Tr >
-            <Th style={{fontSize:"30px"}}>Name</Th>
-            <Th style={{fontSize:"30px"}}>Student Code</Th>
-            <Th style={{fontSize:"30px"}}>Github Username</Th>
-            <Th style={{fontSize:"30px"}}>Profile</Th>
-            <Th style={{fontSize:"30px"}}>Status</Th>
-            <Th style={{fontSize:"30px"}}>Update</Th>
+          <Tr>
+            <Th>
+              <Checkbox
+                checked={allChecked}
+                onChange={(e) => {
+                  setAllChecked(e.target.checked);
+                }}
+              >
+                Select All
+              </Checkbox>
+            </Th>
+            <Th style={{ fontSize: "20px" }}>Name</Th>
+            <Th style={{ fontSize: "20px" }}>Student Code</Th>
+            <Th style={{ fontSize: "20px" }}>Github Username</Th>
+            <Th style={{ fontSize: "20px" }}>Repo Name</Th>
+            <Th style={{ fontSize: "20px" }}>Profile</Th>
+            <Th style={{ fontSize: "20px" }}>Status</Th>
+            <Th style={{ fontSize: "20px" }}>Update</Th>
           </Tr>
         </Thead>
         <Tbody>
-         {
-            tableRows.map((el) =>(
-                <React.Fragment key={el._id}>
-                    <Tablerow cohort={cohort} tableRow={el}/>
-                </React.Fragment>
-            ))
-         }
+          {tableRows.map((el) => (
+            <React.Fragment key={el._id}>
+              <Tablerow allChecked={allChecked} cohort={cohort} tableRow={el} />
+            </React.Fragment>
+          ))}
         </Tbody>
       </Table>
     </TableContainer>
