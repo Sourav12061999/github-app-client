@@ -4,8 +4,9 @@ import {ChevronDownIcon} from "@chakra-ui/icons";
 import {TableRow} from "../Table/table.types";
 interface Props{
   tableRows: Array<TableRow>,
+  isActivePage?:boolean,
 }
-function MenuComp({tableRows}:Props) {
+function MenuComp({tableRows,isActivePage}:Props) {
   return (
     <Menu>
   <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
@@ -16,7 +17,9 @@ function MenuComp({tableRows}:Props) {
       console.log(tableRows)
     }}>Delete</MenuItem>
     <MenuItem>Download</MenuItem>
-    <MenuItem>Run Script</MenuItem>
+    {
+      isActivePage && (<MenuItem>Run Script</MenuItem>)
+    }
   </MenuList>
 </Menu>
   )

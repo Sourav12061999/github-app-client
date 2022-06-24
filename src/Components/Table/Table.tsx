@@ -14,14 +14,14 @@ import MenuComp from "../Menu Component/MenuComp";
 interface Props {
   tableRows: Array<TableRow>,
   cohort: number;
-  setTableData:Function
+  setTableData:Function,
+  isActivePage?:true,
 }
-function TableComponent({ tableRows, cohort,setTableData }: Props) {
+function TableComponent({ tableRows, cohort,setTableData,isActivePage }: Props) {
   const [allChecked, setAllChecked] = useState(false);
-
   return (
     <TableContainer style={{ marginTop: "20px" }}>
-      <MenuComp tableRows={tableRows}/>
+      <MenuComp isActivePage={isActivePage} tableRows={tableRows}/>
       <Table size="sm">
         <Thead>
           <Tr>
