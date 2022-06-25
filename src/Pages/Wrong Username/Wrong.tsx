@@ -45,7 +45,7 @@ function Wrong() {
   return (
     <div style={{ width: "80%", marginInline: "auto", marginTop: "30px" }}>
       <CohortSelect setCohort={setCurrentCohort} cohorts={cohortList} />
-      <TableComponent cohort={currentCohort || 0} tableRows={tableData} setTableData={setTableData} />
+      <TableComponent fetchStudentsData={fetchStudentsData} cohort={currentCohort || 0} tableRows={tableData} setTableData={setTableData} />
     </div>
   );
 }

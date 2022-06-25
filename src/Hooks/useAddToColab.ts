@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { TableRow } from "../Components/Table/table.types";
 import axios from "axios";
+import useUpdateData from "./useUpdateData";
 function useAddToColab() {
   const [failed, setFailed] = useState([]);
+  const {updateData} =useUpdateData();
   function AddToColab(data: Array<TableRow>) {
-    const authToken = `Bearer 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`; // Settings -> Developer settings -> Personal access token. Give repo and user scopes.
+    const authToken = `Bearer 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`; // Settings -> Developer settings -> Personal access token. Give repo and user scopes.
     const org = "masai-course";
     const templateRepo = "code-submission";
     let userNames = data.map((repo) => repo.github_username);
     let repoNames = data.map(
       (repo) => repo.name.toLocaleLowerCase() + "_" + repo.student_code
     );
-    var failedCollaboratorsArray: Array<string> = [];
-    var urlsArray: Array<string> = [];
+    let failedCollaboratorsArray: Array<string> = [];
+    let urlsArray: Array<string> = [];
     const createRepositories = async () => {
       const status = await Promise.allSettled(
         repoNames.map((name) =>
@@ -45,7 +47,7 @@ function useAddToColab() {
       }
     };
   
-    const addCollaborator = async (repo: string, username: string) => {
+    const addCollaborator = async (repo: string, username: string,data:TableRow) => {
       try {
         const response = await axios({
           method: "put",
@@ -58,6 +60,7 @@ function useAddToColab() {
             permission: "maintain",
           },
         });
+        updateData({...data,status:"DONE"});
         return response;
       } catch (error) {
         return error;
@@ -66,7 +69,7 @@ function useAddToColab() {
   
     const addCollaboratorsToRepositories = async () => {
       const status: any = await Promise.allSettled(
-        userNames.map((name, i) => addCollaborator(repoNames[i], name))
+        userNames.map((name, i) => addCollaborator(repoNames[i], name,data[i]))
       );
   
       for (let i = 0; i < status.length; i++) {
@@ -90,7 +93,6 @@ function useAddToColab() {
         await addCollaboratorsToRepositories();
         console.log("failedCollaboratorsArray");
         console.dir(failedCollaboratorsArray, { maxArrayLength: null });
-  
         console.log("urlsArray");
         console.dir(urlsArray, { maxArrayLength: null });
       } catch (error) {

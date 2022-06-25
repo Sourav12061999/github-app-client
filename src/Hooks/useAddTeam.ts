@@ -20,7 +20,7 @@ function useAddTeam(
       {
         method: "PUT",
         headers: {
-          Authorization: "Bearer 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",
+          Authorization: "Bearer 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",
         },
       }
     );

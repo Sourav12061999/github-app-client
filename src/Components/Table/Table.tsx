@@ -16,12 +16,13 @@ interface Props {
   cohort: number;
   setTableData:Function,
   isActivePage?:true,
+  fetchStudentsData:Function
 }
-function TableComponent({ tableRows, cohort,setTableData,isActivePage }: Props) {
+function TableComponent({ tableRows, cohort,setTableData,isActivePage,fetchStudentsData }: Props) {
   const [allChecked, setAllChecked] = useState(false);
   return (
     <TableContainer style={{ marginTop: "20px" }}>
-      <MenuComp isActivePage={isActivePage} tableRows={tableRows}/>
+      <MenuComp fetchStudentsData={fetchStudentsData}  isActivePage={isActivePage} tableRows={tableRows}/>
       <Table size="sm">
         <Thead>
           <Tr>

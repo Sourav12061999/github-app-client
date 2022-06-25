@@ -45,7 +45,7 @@ function Active() {
   return (
     <div style={{ width: "80%", marginInline: "auto", marginTop: "30px" }}>
       <CohortSelect setCohort={setCurrentCohort} cohorts={cohortList} />
-      <TableComponent isActivePage={true} cohort={currentCohort || 0} tableRows={tableData} setTableData={setTableData} />
+      <TableComponent fetchStudentsData={fetchStudentsData} isActivePage={true} cohort={currentCohort || 0} tableRows={tableData} setTableData={setTableData} />
     </div>
   );
 }

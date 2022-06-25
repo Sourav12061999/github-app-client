@@ -6,8 +6,9 @@ import useAddToColab from "../../Hooks/useAddToColab";
 interface Props{
   tableRows: Array<TableRow>,
   isActivePage?:boolean,
+  fetchStudentsData:Function,
 }
-function MenuComp({tableRows,isActivePage}:Props) {
+function MenuComp({tableRows,isActivePage,fetchStudentsData}:Props) {
   const AddToColab=useAddToColab();
   return (
   <Menu>
@@ -20,11 +21,12 @@ function MenuComp({tableRows,isActivePage}:Props) {
     }}>Delete</MenuItem>
     <MenuItem>Download</MenuItem>
     {
-      isActivePage && (<MenuItem onClick={() =>{
+      isActivePage && (<MenuItem onClick={ async ()=>{
         console.log("Ran Script");
-        AddToColab(tableRows.filter((el) =>{
+        await AddToColab(tableRows.filter((el) =>{
           return el.isSelected===true;
         }))
+        await fetchStudentsData();
       }}>Run Script</MenuItem>)
     }
   </MenuList>
